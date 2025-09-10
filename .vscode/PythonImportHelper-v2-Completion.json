@@ -1,0 +1,244 @@
+[
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Query",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "load_model",
+        "importPath": "app.model",
+        "description": "app.model",
+        "isExtraImport": true,
+        "detail": "app.model",
+        "documentation": {}
+    },
+    {
+        "label": "make_forecast_from_now",
+        "importPath": "app.model",
+        "description": "app.model",
+        "isExtraImport": true,
+        "detail": "app.model",
+        "documentation": {}
+    },
+    {
+        "label": "make_forecast_from_range",
+        "importPath": "app.model",
+        "description": "app.model",
+        "isExtraImport": true,
+        "detail": "app.model",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "pyplot",
+        "importPath": "matplotlib",
+        "description": "matplotlib",
+        "isExtraImport": true,
+        "detail": "matplotlib",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Prophet",
+        "importPath": "prophet",
+        "description": "prophet",
+        "isExtraImport": true,
+        "detail": "prophet",
+        "documentation": {}
+    },
+    {
+        "label": "health_check",
+        "kind": 2,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "def health_check():\n    return {\"status\": \"ok\", \"message\": \"Carbon Intensity Forecasting API is running.\"}\n@app.get(\"/predictday\")\ndef predict_day():\n    model = load_model()\n    forecast = make_forecast_from_now(model=model, periods=24)\n    return forecast.to_dict(orient='records')\n@app.get(\"/predictweek\")\ndef predict_week():\n    model = load_model()",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "predict_day",
+        "kind": 2,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "def predict_day():\n    model = load_model()\n    forecast = make_forecast_from_now(model=model, periods=24)\n    return forecast.to_dict(orient='records')\n@app.get(\"/predictweek\")\ndef predict_week():\n    model = load_model()\n    forecast = make_forecast_from_now(model=model, periods=168)\n    return forecast.to_dict(orient='records')\n@app.get(\"/predictmonth\")",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "predict_week",
+        "kind": 2,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "def predict_week():\n    model = load_model()\n    forecast = make_forecast_from_now(model=model, periods=168)\n    return forecast.to_dict(orient='records')\n@app.get(\"/predictmonth\")\ndef predict_month():\n    model = load_model()\n    forecast = make_forecast_from_now(model=model, periods=720)\n    return forecast.to_dict(orient='records')\n@app.get(\"/predictrange\")",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "predict_month",
+        "kind": 2,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "def predict_month():\n    model = load_model()\n    forecast = make_forecast_from_now(model=model, periods=720)\n    return forecast.to_dict(orient='records')\n@app.get(\"/predictrange\")\ndef predict_range(start: str = Query(...), end: str = Query(...)):\n    \"\"\"\n    Example: /predictrange?start=2025-08-01T00:00:00&end=2025-08-07T23:00:00\n    \"\"\"\n    try:",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "predict_range",
+        "kind": 2,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "def predict_range(start: str = Query(...), end: str = Query(...)):\n    \"\"\"\n    Example: /predictrange?start=2025-08-01T00:00:00&end=2025-08-07T23:00:00\n    \"\"\"\n    try:\n        start_dt = pd.to_datetime(start).round('H')\n        end_dt = pd.to_datetime(end).round('H')\n        if end_dt <= start_dt:\n            return {\"error\": \"End time must be after start time.\"}\n        model = load_model()",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "app = FastAPI()\n# health check endpoint\n@app.get(\"/\")\ndef health_check():\n    return {\"status\": \"ok\", \"message\": \"Carbon Intensity Forecasting API is running.\"}\n@app.get(\"/predictday\")\ndef predict_day():\n    model = load_model()\n    forecast = make_forecast_from_now(model=model, periods=24)\n    return forecast.to_dict(orient='records')",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "load_model",
+        "kind": 2,
+        "importPath": "app.model",
+        "description": "app.model",
+        "peekOfCode": "def load_model():\n    import joblib\n    return joblib.load(MODEL_PATH)\ndef make_forecast_from_now(model, periods=168):\n    now = pd.Timestamp.now().round('H')  # round to nearest hour\n    future = pd.date_range(start=now, periods=periods+1, freq='H')  # +1 for inclusive\n    future_df = pd.DataFrame({'ds': future})\n    forecast = model.predict(future_df)\n    forecast['yhat'] = forecast['yhat'].clip(lower=10)\n    # forecast['yhat_lower'] = forecast['yhat_lower'].clip(lower=10)",
+        "detail": "app.model",
+        "documentation": {}
+    },
+    {
+        "label": "make_forecast_from_now",
+        "kind": 2,
+        "importPath": "app.model",
+        "description": "app.model",
+        "peekOfCode": "def make_forecast_from_now(model, periods=168):\n    now = pd.Timestamp.now().round('H')  # round to nearest hour\n    future = pd.date_range(start=now, periods=periods+1, freq='H')  # +1 for inclusive\n    future_df = pd.DataFrame({'ds': future})\n    forecast = model.predict(future_df)\n    forecast['yhat'] = forecast['yhat'].clip(lower=10)\n    # forecast['yhat_lower'] = forecast['yhat_lower'].clip(lower=10)\n    # forecast['yhat_upper'] = forecast['yhat_upper'].clip(lower=10)\n    forecast = forecast[['ds', 'yhat']]\n    forecast = forecast.rename(columns={'ds': 'timestamp', 'yhat': 'ci'})",
+        "detail": "app.model",
+        "documentation": {}
+    },
+    {
+        "label": "make_forecast_from_range",
+        "kind": 2,
+        "importPath": "app.model",
+        "description": "app.model",
+        "peekOfCode": "def make_forecast_from_range(model, start: pd.Timestamp, end: pd.Timestamp):\n    future = pd.date_range(start=start, end=end, freq='H')\n    future_df = pd.DataFrame({'ds': future})\n    forecast = model.predict(future_df)\n    forecast['yhat'] = forecast['yhat'].clip(lower=10)\n    forecast = forecast[['ds', 'yhat']]\n    forecast = forecast.rename(columns={'ds': 'timestamp', 'yhat': 'ci'})\n    return forecast",
+        "detail": "app.model",
+        "documentation": {}
+    },
+    {
+        "label": "MODEL_PATH",
+        "kind": 5,
+        "importPath": "app.model",
+        "description": "app.model",
+        "peekOfCode": "MODEL_PATH = \"app/prophet_model.pkl\"\ndef load_model():\n    import joblib\n    return joblib.load(MODEL_PATH)\ndef make_forecast_from_now(model, periods=168):\n    now = pd.Timestamp.now().round('H')  # round to nearest hour\n    future = pd.date_range(start=now, periods=periods+1, freq='H')  # +1 for inclusive\n    future_df = pd.DataFrame({'ds': future})\n    forecast = model.predict(future_df)\n    forecast['yhat'] = forecast['yhat'].clip(lower=10)",
+        "detail": "app.model",
+        "documentation": {}
+    },
+    {
+        "label": "load_data",
+        "kind": 2,
+        "importPath": "app.train_model",
+        "description": "app.train_model",
+        "peekOfCode": "def load_data():\n    f2021 = \"dataset/IT-NO_2021_hourly.csv\"\n    f2022 = \"dataset/IT-NO_2022_hourly.csv\"\n    f2023 = \"dataset/IT-NO_2023_hourly.csv\"\n    f2024 = \"dataset/IT-NO_2024_hourly.csv\"\n    df1 = pd.read_csv(f2021, index_col=\"Datetime (UTC)\", parse_dates=True)\n    df2 = pd.read_csv(f2022, index_col=\"Datetime (UTC)\", parse_dates=True)\n    df3 = pd.read_csv(f2023, index_col=\"Datetime (UTC)\", parse_dates=True)\n    df4 = pd.read_csv(f2024, index_col=\"Datetime (UTC)\", parse_dates=True)\n    df = pd.concat([df1, df2, df3, df4], axis=0)",
+        "detail": "app.train_model",
+        "documentation": {}
+    },
+    {
+        "label": "train_and_save_model",
+        "kind": 2,
+        "importPath": "app.train_model",
+        "description": "app.train_model",
+        "peekOfCode": "def train_and_save_model(MODEL_PATH):\n    df = load_data()\n    model = Prophet(\n        yearly_seasonality=True,\n        weekly_seasonality=True,\n        daily_seasonality=True,\n        changepoint_prior_scale = 0.05,\n        seasonality_prior_scale = 1.0\n    )\n    model.fit(df)",
+        "detail": "app.train_model",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "app.train_model",
+        "description": "app.train_model",
+        "peekOfCode": "df = load_data()\n# Add floor and cap columns\ndf['floor'] = 65\ndf['cap'] = 500\ndef train_and_save_model(MODEL_PATH):\n    df = load_data()\n    model = Prophet(\n        yearly_seasonality=True,\n        weekly_seasonality=True,\n        daily_seasonality=True,",
+        "detail": "app.train_model",
+        "documentation": {}
+    },
+    {
+        "label": "df['floor']",
+        "kind": 5,
+        "importPath": "app.train_model",
+        "description": "app.train_model",
+        "peekOfCode": "df['floor'] = 65\ndf['cap'] = 500\ndef train_and_save_model(MODEL_PATH):\n    df = load_data()\n    model = Prophet(\n        yearly_seasonality=True,\n        weekly_seasonality=True,\n        daily_seasonality=True,\n        changepoint_prior_scale = 0.05,\n        seasonality_prior_scale = 1.0",
+        "detail": "app.train_model",
+        "documentation": {}
+    },
+    {
+        "label": "df['cap']",
+        "kind": 5,
+        "importPath": "app.train_model",
+        "description": "app.train_model",
+        "peekOfCode": "df['cap'] = 500\ndef train_and_save_model(MODEL_PATH):\n    df = load_data()\n    model = Prophet(\n        yearly_seasonality=True,\n        weekly_seasonality=True,\n        daily_seasonality=True,\n        changepoint_prior_scale = 0.05,\n        seasonality_prior_scale = 1.0\n    )",
+        "detail": "app.train_model",
+        "documentation": {}
+    },
+    {
+        "label": "MODEL_PATH",
+        "kind": 5,
+        "importPath": "app.train_model",
+        "description": "app.train_model",
+        "peekOfCode": "MODEL_PATH = \"prophet_model.pkl\"\ntrain_and_save_model(MODEL_PATH)",
+        "detail": "app.train_model",
+        "documentation": {}
+    }
+]

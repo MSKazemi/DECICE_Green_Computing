@@ -1,0 +1,52 @@
+# DECICE Green Computing — Carbon Intensity Forecasting API
+
+> A FastAPI + Facebook Prophet REST API that forecasts hourly electricity-grid carbon intensity (gCO₂eq/kWh) for the North Italy (IT-NO) zone. It is part of the green / energy-efficient computing work of the DECICE EU Horizon Europe project (Grant Agreement No. 101092582), supporting carbon-aware workload scheduling across the cloud–edge–HPC continuum.
+
+## What this project is
+
+- Purpose: forecast grid carbon intensity so that compute workloads can be scheduled at low-carbon times (carbon-aware, energy-efficient computing).
+- Region: North Italy electricity zone (IT-NO).
+- Metric: carbon intensity in grams of CO₂-equivalent per kWh (gCO₂eq/kWh), hourly resolution.
+- Model: a pre-trained Facebook Prophet time-series model (yearly, weekly, daily seasonality) trained on 2021–2024 hourly IT-NO history.
+- Interface: a FastAPI HTTP service returning JSON.
+- Language/stack: Python 3.12, FastAPI, Uvicorn, Prophet, pandas, NumPy, scikit-learn, matplotlib, Docker.
+
+## Context: the DECICE project
+
+- DECICE = Device-Edge-Cloud Intelligent Collaboration framEwork.
+- Funding: European Union, Horizon Europe (HORIZON-CL4-2022-DATA-01-02), Grant Agreement No. 101092582.
+- Goal: an AI-driven framework for scheduling and placing workloads across the heterogeneous cloud, edge and HPC compute continuum, with energy efficiency and sustainability as core objectives.
+- This repository contributes carbon-intensity forecasting as an input signal for carbon-aware scheduling.
+
+## API endpoints
+
+- GET / — health check.
+- GET /predictday — forecast for the next 24 hours.
+- GET /predictweek — forecast for the next 7 days (168 hours).
+- GET /predictmonth — forecast for the next 30 days (720 hours).
+- GET /predictrange?start=<ISO>&end=<ISO> — forecast for a custom date range.
+
+Each response is a JSON list of {"timestamp", "ci"} records, where "ci" is the forecasted carbon intensity in gCO₂eq/kWh.
+
+## Usage
+
+- Docker: `docker build -t decicegreencomputing .` then `docker run -p 8000:8000 decicegreencomputing`.
+- Local: `pip install -r requirements.txt` then `uvicorn app.main:app --host 0.0.0.0 --port 8000`.
+- Interactive docs: http://localhost:8000/docs
+
+## Key files
+
+- app/main.py — FastAPI application and endpoints.
+- app/model.py — model loading and forecast generation.
+- app/train_model.py — trains and saves the Prophet model from IT-NO CSV history.
+- app/dataset/IT-NO_<year>_hourly.csv — hourly carbon-intensity training data (2021–2024).
+- Dockerfile — container build.
+- requirements.txt — Python dependencies.
+
+## Topics
+
+carbon intensity, carbon-aware computing, green computing, energy efficiency, sustainability, DECICE, EU Horizon Europe, HPC, cloud-edge, edge computing, time-series forecasting, Prophet, FastAPI, machine learning, Python.
+
+## License
+
+License deferred — EU-project (DECICE), institutional / collaborative work; to be decided by the project and repository owner.

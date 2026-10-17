@@ -83,3 +83,9 @@ This work was carried out in the context of the **DECICE** project, which has re
 ## License
 
 License deferred — this is EU-project (DECICE), institutional / collaborative work; licensing to be decided by the project and repository owner.
+
+<!-- legal-notice: start -->
+### Legal notice and responsible use
+
+The materials in this repository are made available without warranties to the extent permitted by applicable law. **Please read the [Disclaimer and Responsible-Use Notice](DISCLAIMER.md)** before relying on or deploying them. This notice does not change any existing software license or limit rights that cannot legally be waived.
+<!-- legal-notice: end -->
